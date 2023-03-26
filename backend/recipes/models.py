@@ -9,5 +9,5 @@ class Tag(models.Model):
     pass
 
 
-class Ingridient(models.Model):
+class Ingredient(models.Model):
     pass
