@@ -6,10 +6,10 @@ User = get_user_model()
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=128, verbose_name='Название', unique=True)
+    name = models.CharField(max_length=128, verbose_name='Тег', unique=True)
     color = models.CharField(
         max_length=7,
-        verbose_name='HEX-код',
+        verbose_name='Цвет',
         validators=[
             RegexValidator(
                 regex='^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$',
