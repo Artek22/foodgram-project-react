@@ -1,7 +1,15 @@
 from django.contrib import admin
+from import_export.admin import ImportExportModelAdmin
 from django.contrib.admin import display
 
-from .models import (Ingredient, IngredientRecipe, Recipe, Tag)
+from .models import Ingredient, IngredientRecipe, Recipe, Tag
+from users.models import User
+
+
+@admin.register(User)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'email', 'first_name',)
+    list_filter = ('username', 'email')
 
 
 @admin.register(Recipe)
@@ -16,7 +24,7 @@ class RecipeAdmin(admin.ModelAdmin):
 
 
 @admin.register(Ingredient)
-class IngredientAdmin(admin.ModelAdmin):
+class IngredientAdmin(ImportExportModelAdmin):
     list_display = ('name', 'measurement_unit',)
     list_filter = ('name',)
 
