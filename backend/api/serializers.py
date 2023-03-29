@@ -18,6 +18,7 @@ User = get_user_model()
 class CustomUserCreateSerializer(UserCreateSerializer):
     class Meta:
         model = User
+        fields = '__all__'
         fields = tuple(User.REQUIRED_FIELDS) + (
             User.USERNAME_FIELD,
             'password',
@@ -25,6 +26,7 @@ class CustomUserCreateSerializer(UserCreateSerializer):
 
 
 class CustomUserSerializer(UserSerializer):
+    """ Сериализатор пользователя """
     is_subscribed = SerializerMethodField(read_only=True)
 
     class Meta:
