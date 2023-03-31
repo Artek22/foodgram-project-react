@@ -138,7 +138,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-LENGTH_OF_FIELDS_USER_1 = 150
-
-LENGTH_OF_FIELDS_USER_2 = 254
