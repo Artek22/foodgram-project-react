@@ -1,5 +1,4 @@
 from colorfield.fields import ColorField
-from django.conf import settings
 from django.core.validators import (MaxValueValidator, MinValueValidator,
                                     RegexValidator)
 from django.db import models
@@ -11,12 +10,12 @@ from users.models import User
 class Ingredient(models.Model):
     """ Модель ингридиентов. """
     name = models.CharField(
-        max_length=settings.LENGTH_OF_FIELDS_RECIPES,
+        max_length=200,
         verbose_name='Название ингридиента',
         db_index=True
     )
     measurement_unit = models.CharField(
-        max_length=settings.LENGTH_OF_FIELDS_RECIPES,
+        max_length=200,
         verbose_name='Еденицы измерения'
     )
 
@@ -38,7 +37,7 @@ class Tag(models.Model):
     """ Модель тегов."""
     name = models.CharField(
         verbose_name='Название тега',
-        max_length=settings.LENGTH_OF_FIELDS_RECIPES,
+        max_length=200,
         db_index=True,
         unique=True
     )
@@ -55,7 +54,7 @@ class Tag(models.Model):
         ],
     )
     slug = models.SlugField(
-        max_length=settings.LENGTH_OF_FIELDS_RECIPES,
+        max_length=200,
         verbose_name='Slug',
         unique=True
     )
@@ -79,7 +78,7 @@ class Recipe(models.Model):
     )
     name = models.CharField(
         verbose_name='Название рецепта',
-        max_length=settings.LENGTH_OF_FIELDS_RECIPES,
+        max_length=200,
     )
     image = models.ImageField(
         upload_to='recipes/image/',
