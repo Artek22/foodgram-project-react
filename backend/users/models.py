@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
@@ -26,7 +25,7 @@ class User(AbstractUser):
         verbose_name='username',
         max_length=254,
         unique=True,
-        validators=(UnicodeUsernameValidator(), )
+        validators=(UnicodeUsernameValidator(),)
     )
 
     class Meta:
@@ -61,6 +60,7 @@ class Follow(models.Model):
                 name='unique_follow'
             ),
             models.CheckConstraint(
+                # Проверяем не является ли юзер автором
                 check=~Q(user=F('author')),
                 name='no_self_follow'
             )
