@@ -11,17 +11,17 @@ class Ingredient(models.Model):
     """ Модель ингридиентов. """
     name = models.CharField(
         max_length=200,
-        verbose_name='Название ингридиента',
+        verbose_name='Название ингредиента',
         db_index=True
     )
     measurement_unit = models.CharField(
         max_length=200,
-        verbose_name='Еденицы измерения'
+        verbose_name='Единицы измерения'
     )
 
     class Meta():
-        verbose_name = 'Ингридиенты'
-        verbose_name_plural = 'Ингридиенты'
+        verbose_name = 'Ингредиенты'
+        verbose_name_plural = 'Ингредиенты'
         constraints = [
             models.UniqueConstraint(
                 fields=['name', 'measurement_unit'],
@@ -144,7 +144,7 @@ class FavoriteShoppingCart(models.Model):
 
 
 class Favorite(FavoriteShoppingCart):
-    """ Модель добавление в избраное. """
+    """ Модель добавление в избранное. """
 
     class Meta(FavoriteShoppingCart.Meta):
         default_related_name = 'favorites'
