@@ -26,10 +26,10 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     "rest_framework",
     "rest_framework.authtoken",
-    'corsheaders',
     "django_filters",
     "djoser",
     "drf_yasg",
+    'corsheaders',
     "colorfield",
     "import_export",
 ]
@@ -142,6 +142,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
+    'http://127.0.0.1:3000',
 ]
 CORS_URLS_REGEX = r'^/api/.*$'
