@@ -28,25 +28,14 @@ class UserSerializer(UserSerializer):
         )
 
     def get_is_subscribed(self, obj):
-        ''' Саш, привет. Я эту правку не понял. Надо как-то переопределить
-        во UserViewSet метод subscriptions, чтобы он возвращал context
-        в сериализатор. Нашел способ через GenericViwSet, но не понимаю как
-        прописать контент:
-
-        class MyModelViewSet(ModelViewSet):
-            queryset = MyModel.objects.all()
-            permission_classes = [DjangoModelPermissions]
-            serializer_class = MyModelSerializer
-
-            def get_serializer_context(self):
-                context = super().get_serializer_context()
-                context.update({"request": self.request})
-                return context
+        ''' Саш, привет. Я эту правку не понял. Прописал метод во вьюхе,
+        но не совсем понимаю принцип его работы.
         '''
-        request = self.context.get('request')
-        if self.context.get('request').user.is_anonymous:
-            return False
-        return obj.following.filter(user=request.user).exists()
+        return obj.id in self.context['subscriptions']
+        # request = self.context.get('request')
+        # if self.context.get('request').user.is_anonymous:
+        #     return False
+        # return obj.following.filter(user=request.user).exists()
 
 
 class UserCreateSerializer(UserCreateSerializer):

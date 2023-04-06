@@ -164,3 +164,9 @@ class UserViewSet(UserViewSet):
             pages, many=True, context={'request': request}
         )
         return self.get_paginated_response(serializer.data)
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['subscriptions'] = set(Follow.objects.filter(
+                user_id=self.request.user).values_list('author_id', flat=True))
+        return context
