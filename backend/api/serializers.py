@@ -16,16 +16,33 @@ class UserSerializer(UserSerializer):
 
     class Meta:
         model = User
-        fields = (
-            'email',
-            'id',
-            'username',
-            'first_name',
-            'last_name',
-            'is_subscribed',
+        exclude = (
+            'password',
+            'last_login',
+            'is_superuser',
+            'is_staff',
+            'is_active',
+            'date_joined',
+            'groups',
+            'user_permissions',
         )
 
     def get_is_subscribed(self, obj):
+        ''' Саш, привет. Я эту правку не понял. Надо как-то переопределить
+        во UserViewSet метод subscriptions, чтобы он возвращал context
+        в сериализатор. Нашел способ через GenericViwSet, но не понимаю как
+        прописать контент:
+
+        class MyModelViewSet(ModelViewSet):
+            queryset = MyModel.objects.all()
+            permission_classes = [DjangoModelPermissions]
+            serializer_class = MyModelSerializer
+
+            def get_serializer_context(self):
+                context = super().get_serializer_context()
+                context.update({"request": self.request})
+                return context
+        '''
         request = self.context.get('request')
         if self.context.get('request').user.is_anonymous:
             return False
@@ -48,7 +65,16 @@ class SubscribeListSerializer(UserSerializer):
     recipes = SerializerMethodField()
 
     class Meta(UserSerializer.Meta):
-        fields = UserSerializer.Meta.fields + ('recipes_count', 'recipes')
+        exclude = (
+            'password',
+            'last_login',
+            'is_superuser',
+            'is_staff',
+            'is_active',
+            'date_joined',
+            'groups',
+            'user_permissions',
+        )
         read_only_fields = ('email', 'username', 'first_name', 'last_name')
 
     def validate(self, data):
@@ -73,10 +99,9 @@ class SubscribeListSerializer(UserSerializer):
 
     def get_recipes(self, obj):
         request = self.context.get('request')
-        limit = request.GET.get('recipes_limit')
         recipes = obj.recipes.all()
-        if limit:
-            recipes = recipes[: int(limit)]
+        limit = request.GET.get('recipes_limit') or len(recipes)
+        recipes = recipes[: int(limit)]
         serializer = RecipeShortSerializer(recipes, many=True, read_only=True)
         return serializer.data
 
