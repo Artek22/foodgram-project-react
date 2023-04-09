@@ -28,14 +28,10 @@ class UserSerializer(UserSerializer):
         )
 
     def get_is_subscribed(self, obj):
-        ''' Саш, привет. Я эту правку не понял. Прописал метод во вьюхе,
-        но не совсем понимаю принцип его работы.
-        '''
-        return obj.id in self.context['subscriptions']
-        # request = self.context.get('request')
-        # if self.context.get('request').user.is_anonymous:
-        #     return False
-        # return obj.following.filter(user=request.user).exists()
+        request = self.context.get('request')
+        if self.context.get('request').user.is_anonymous:
+            return False
+        return obj.following.filter(user=request.user).exists()
 
 
 class UserCreateSerializer(UserCreateSerializer):
