@@ -12,7 +12,7 @@ class IngredientInline(admin.TabularInline):
 
 
 @admin.register(Recipe)
-class RecipeAdmin(admin.ModelAdmin):
+class RecipeAdmin(ImportExportModelAdmin):
     list_display = ('author', 'name', 'cooking_time',
                     'get_favorites', 'get_ingredients',)
     search_fields = ('name', 'author', 'tags')
