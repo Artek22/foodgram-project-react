@@ -145,3 +145,4 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3000',
 ]
 CORS_URLS_REGEX = r'^/api/.*$'
+#
