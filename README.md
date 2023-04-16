@@ -19,5 +19,4 @@
 ```
 - login: admin@a.ru
 - username: Tor
-- пароль: 0987654321
 ```
