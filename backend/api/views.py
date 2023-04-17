@@ -78,7 +78,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     @action(
         detail=True,
-        methods=('POST',),
+        methods=['POST'],
         permission_classes=[IsAuthenticated])
     def shopping_cart(self, request, pk):
         context = {'request': request}
